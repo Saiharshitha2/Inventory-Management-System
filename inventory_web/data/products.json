@@ -1,0 +1,42 @@
+[
+    {
+        "product_id": "P001",
+        "name": "Wireless Mouse",
+        "category": "Electronics",
+        "price": 19.99,
+        "quantity": 50,
+        "supplier": "TechSource Ltd"
+    },
+    {
+        "product_id": "P002",
+        "name": "Mechanical Keyboard",
+        "category": "Electronics",
+        "price": 49.99,
+        "quantity": 8,
+        "supplier": "TechSource Ltd"
+    },
+    {
+        "product_id": "P003",
+        "name": "Notebook A5",
+        "category": "Stationery",
+        "price": 2.50,
+        "quantity": 200,
+        "supplier": "PaperWorks Inc"
+    },
+    {
+        "product_id": "P004",
+        "name": "Ballpoint Pen (Pack of 10)",
+        "category": "Stationery",
+        "price": 3.75,
+        "quantity": 5,
+        "supplier": "PaperWorks Inc"
+    },
+    {
+        "product_id": "P005",
+        "name": "Office Chair",
+        "category": "Furniture",
+        "price": 89.99,
+        "quantity": 15,
+        "supplier": "ComfortSeating Co"
+    }
+]

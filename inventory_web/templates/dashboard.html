@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <div class="page-sub">Ledger overview — {{ inv_report.total_products }} products on record</div>
+  </div>
+</div>
+
+{% if low_stock %}
+<div class="hazard-banner">
+  <span>⚠</span>
+  <span><strong>{{ low_stock|length }} product{{ 's' if low_stock|length != 1 }}</strong> below the {{ threshold }}-unit threshold —
+  <a href="{{ url_for('products_list') }}" style="color: var(--rust-dark); text-decoration: underline;">review stock</a></span>
+</div>
+{% endif %}
+
+<div class="stat-grid">
+  <div class="stat-card" data-tag="INV">
+    <div class="stat-label">Total products</div>
+    <div class="stat-value">{{ inv_report.total_products }}</div>
+  </div>
+  <div class="stat-card" data-tag="CAT">
+    <div class="stat-label">Categories</div>
+    <div class="stat-value">{{ inv_report.total_categories }}</div>
+  </div>
+  <div class="stat-card" data-tag="QTY">
+    <div class="stat-label">Units in stock</div>
+    <div class="stat-value">{{ inv_report.total_available_stock }}</div>
+  </div>
+  <div class="stat-card" data-tag="VAL">
+    <div class="stat-label">Stock value</div>
+    <div class="stat-value accent">${{ "%.2f"|format(inv_report.total_stock_value) }}</div>
+  </div>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-card" data-tag="QTY">
+    <div class="stat-label">Units sold to date</div>
+    <div class="stat-value">{{ sales_report.total_products_sold }}</div>
+  </div>
+  <div class="stat-card" data-tag="REV">
+    <div class="stat-label">Revenue generated</div>
+    <div class="stat-value green">${{ "%.2f"|format(sales_report.total_revenue) }}</div>
+  </div>
+  <div class="stat-card" data-tag="TOP">
+    <div class="stat-label">Best seller</div>
+    {% if sales_report.most_sold_product %}
+      <div class="stat-value" style="font-size: 20px;">{{ sales_report.most_sold_product[0] }}</div>
+      <div class="page-sub" style="margin-top:6px;">{{ sales_report.most_sold_product[1] }} units sold</div>
+    {% else %}
+      <div class="stat-value" style="font-size: 18px; color: var(--ink-soft);">No sales yet</div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head">
+    <h2>Low stock</h2>
+    <a class="section-link" href="{{ url_for('products_list') }}">view all products →</a>
+  </div>
+  <div class="table-wrap">
+    {% if low_stock %}
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Category</th><th class="num">Qty</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for p in low_stock %}
+        <tr>
+          <td class="mono">{{ p.product_id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.category }}</td>
+          <td class="num">{{ p.quantity }}</td>
+          <td><span class="tag tag-low">low stock</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">All products are sufficiently stocked.</div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

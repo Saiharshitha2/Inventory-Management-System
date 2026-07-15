@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Stockroom{% endblock %} — Inventory Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="frame">
+  <aside class="rail">
+    <div class="brand">
+      <span class="brand-mark">▣</span>
+      <span class="brand-text">Stockroom<br><span class="brand-sub">Inventory Ledger</span></span>
+    </div>
+    <nav class="rail-nav">
+      <a href="{{ url_for('dashboard') }}" class="{{ 'is-active' if request.endpoint == 'dashboard' }}">
+        <span class="nav-tag">01</span> Dashboard
+      </a>
+      <a href="{{ url_for('products_list') }}" class="{{ 'is-active' if request.endpoint in ['products_list','add_product','edit_product'] }}">
+        <span class="nav-tag">02</span> Products
+      </a>
+      <a href="{{ url_for('sales_list') }}" class="{{ 'is-active' if request.endpoint in ['sales_list','record_sale'] }}">
+        <span class="nav-tag">03</span> Sales
+      </a>
+      <a href="{{ url_for('reports_page') }}" class="{{ 'is-active' if request.endpoint == 'reports_page' }}">
+        <span class="nav-tag">04</span> Reports
+      </a>
+    </nav>
+    <div class="rail-foot">Local JSON storage<br>products.json · sales.json</div>
+  </aside>
+
+  <main class="main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack">
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">
+            <span class="flash-icon">{{ '✕' if category == 'error' else '✓' }}</span>
+            {{ message }}
+          </div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Record Sale{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Record sale</h1>
+    <div class="page-sub">Stock updates and revenue are calculated automatically</div>
+  </div>
+</div>
+
+<div class="form-card">
+  <form method="post">
+    <div class="field">
+      <label for="product_id">Product</label>
+      <select id="product_id" name="product_id" required>
+        <option value="" disabled selected>Select a product…</option>
+        {% for p in products %}
+        <option value="{{ p.product_id }}">{{ p.product_id }} — {{ p.name }} ({{ p.quantity }} in stock)</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="quantity">Quantity sold</label>
+      <input type="number" id="quantity" name="quantity" min="1" required>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Record sale</button>
+      <a class="btn btn-ghost" href="{{ url_for('sales_list') }}">Cancel</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

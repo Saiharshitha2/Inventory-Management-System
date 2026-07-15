@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Sales{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Sales</h1>
+    <div class="page-sub">{{ sales|length }} transaction{{ 's' if sales|length != 1 }} recorded</div>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('record_sale') }}">+ Record sale</a>
+</div>
+
+<div class="table-wrap">
+  {% if sales %}
+  <table>
+    <thead>
+      <tr>
+        <th>Date / time</th><th>Product ID</th><th>Product name</th>
+        <th class="num">Qty sold</th><th class="num">Unit price</th><th class="num">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in sales %}
+      <tr>
+        <td class="mono">{{ s.timestamp }}</td>
+        <td class="mono">{{ s.product_id }}</td>
+        <td>{{ s.product_name }}</td>
+        <td class="num">{{ s.quantity_sold }}</td>
+        <td class="num">${{ "%.2f"|format(s.unit_price) }}</td>
+        <td class="num">${{ "%.2f"|format(s.total_amount) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">No sales recorded yet. <a href="{{ url_for('record_sale') }}" style="color: var(--rust);">Record your first sale →</a></div>
+  {% endif %}
+</div>
+
+{% endblock %}

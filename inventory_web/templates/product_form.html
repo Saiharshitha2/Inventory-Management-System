@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Add Product' if mode == 'add' else 'Edit Product' }}{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>{{ 'Add product' if mode == 'add' else 'Edit product' }}</h1>
+    <div class="page-sub">{{ 'New ledger entry' if mode == 'add' else 'Editing ' + product.product_id }}</div>
+  </div>
+</div>
+
+<div class="form-card">
+  <form method="post">
+    {% if mode == 'add' %}
+    <div class="field">
+      <label for="product_id">Product ID</label>
+      <input type="text" id="product_id" name="product_id" required autofocus>
+    </div>
+    {% endif %}
+
+    <div class="field">
+      <label for="name">Product name</label>
+      <input type="text" id="name" name="name" required value="{{ product.name if product else '' }}">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" required value="{{ product.category if product else '' }}">
+      </div>
+      <div class="field">
+        <label for="supplier">Supplier name</label>
+        <input type="text" id="supplier" name="supplier" {{ 'required' if mode == 'add' else 'disabled' }}
+               value="{{ product.supplier if product else '' }}">
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="price">Price ($)</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" required
+               value="{{ product.price if product else '' }}">
+      </div>
+      <div class="field">
+        <label for="quantity">Quantity available</label>
+        <input type="number" id="quantity" name="quantity" min="0" required
+               value="{{ product.quantity if product else '' }}">
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">{{ 'Add product' if mode == 'add' else 'Save changes' }}</button>
+      <a class="btn btn-ghost" href="{{ url_for('products_list') }}">Cancel</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

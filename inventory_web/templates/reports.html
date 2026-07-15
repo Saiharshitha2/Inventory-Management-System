@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <div>
+    <h1>Reports</h1>
+    <div class="page-sub">Inventory &amp; sales summary</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head"><h2>Inventory report</h2></div>
+  <div class="ledger-list">
+    <div class="ledger-row"><span class="label">Total products</span><span class="value">{{ inv_report.total_products }}</span></div>
+    <div class="ledger-row"><span class="label">Total categories</span><span class="value">{{ inv_report.total_categories }}</span></div>
+    <div class="ledger-row"><span class="label">Total available stock</span><span class="value">{{ inv_report.total_available_stock }} units</span></div>
+    <div class="ledger-row"><span class="label">Total stock value</span><span class="value">${{ "%.2f"|format(inv_report.total_stock_value) }}</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-head"><h2>Sales report</h2></div>
+  <div class="ledger-list">
+    <div class="ledger-row"><span class="label">Total products sold</span><span class="value">{{ sale_report.total_products_sold }}</span></div>
+    <div class="ledger-row"><span class="label">Total revenue generated</span><span class="value">${{ "%.2f"|format(sale_report.total_revenue) }}</span></div>
+    <div class="ledger-row">
+      <span class="label">Most sold product</span>
+      <span class="value">
+        {% if sale_report.most_sold_product %}
+          {{ sale_report.most_sold_product[0] }} ({{ sale_report.most_sold_product[1] }} units)
+        {% else %}
+          N/A
+        {% endif %}
+      </span>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
