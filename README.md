@@ -193,5 +193,5 @@ Quantity to reduce: 1000
 Name: Sai Harshitha 
 project: Inventory Mangement system
 
-## license
+## License
 This project is based on educational and academic purpose.
