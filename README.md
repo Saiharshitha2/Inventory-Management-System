@@ -188,3 +188,10 @@ Quantity to reduce: 1000
 - Add a `pandas`-powered analytics dashboard
 - Multi-user login and role-based permissions
 - Switch to a proper database (SQLite) for larger inventories
+
+## Author
+Name: sai harshitha 
+project: Inventory Mangement system
+
+## license
+This project is based on educational and academic purpose.
