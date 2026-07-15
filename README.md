@@ -190,7 +190,7 @@ Quantity to reduce: 1000
 - Switch to a proper database (SQLite) for larger inventories
 
 ## Author
-Name: sai harshitha 
+Name: Sai Harshitha 
 project: Inventory Mangement system
 
 ## license
